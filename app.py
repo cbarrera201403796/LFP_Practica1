@@ -68,7 +68,7 @@ def handle_courses():
                   borderwidth=0.2,
                   relief="groove",
                   width=20,
-                  command=lambda: create_course()).place(x=390, y=400)
+                  command=lambda: delete_course()).place(x=390, y=400)
 
         for index, course in enumerate(dataHandler.all_courses):
             pre_requisites = ''
@@ -87,6 +87,30 @@ def handle_courses():
 
     else:
         messagebox.showinfo(message='Debe cargar un archivo primero', title='Error')
+
+
+def delete_course():
+    delete_course_window = tk.Toplevel()
+    cv = tk.Canvas(delete_course_window, height=HEIGHT + 100, width=900)
+    cv.pack()
+
+    tk.Label(cv, text="Codigo").place(x=80, y=10)
+    code_entry = ttk.Entry(cv)
+    code_entry.place(x=80, y=30)
+    tk.Button(cv,
+              text="Guardar",
+              bg="#82CC6C",
+              fg="black",
+              highlightbackground="#82CC6C",
+              highlightthickness=1,
+              borderwidth=0.2,
+              relief="groove",
+              width=20,
+              command=lambda: del_course(Course(code=code_entry.get()))).place(x=80, y=60)
+
+
+def del_course(code):
+    dataHandler.delete_course(code)
 
 
 def create_course():
