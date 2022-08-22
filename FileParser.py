@@ -4,7 +4,6 @@ from ParsedData import ParsedData
 from Prerequisite import Prerequisite
 import re
 
-
 class FileParser:
 
     def __init__(self, file_location=None):
@@ -55,6 +54,9 @@ class FileParser:
                     t_points = separated_data[5].lstrip()
                     t_status = separated_data[6].lstrip()
 
+                   # print("STATUS RAW", t_status)
+                   # print("SEMESTER RAW", t_semester)
+
                     found_code_issue = not self.code_pattern.match(t_code)
                     if found_code_issue:
                         error_data.append(Error("Formato de código incorrecto", index))
@@ -80,7 +82,7 @@ class FileParser:
                         error_data.append(Error("Formato de estado incorrecto", index))
 
                     t_separated_pre_requisites = separated_data[2].rstrip("\n").rstrip(" ").lstrip().split(";")
-                    print(t_separated_pre_requisites)
+                    #print(t_separated_pre_requisites)
                     found_prerequisites_issues = False
                     if len(t_separated_pre_requisites) > 1:
                         for t_course_code in t_separated_pre_requisites:
@@ -104,23 +106,23 @@ class FileParser:
         return ParsedData(parsed_data, error_data)
 
 
-parser = FileParser("Entry.lfp")
+#parser = FileParser("tester2.lpf")
 
-parsed_data_1 = parser.parse_file()
+#parsed_data_1 = parser.parse_file()
 
-if len(parsed_data_1.errors) > 0:
-    print("Hay errores en el archivo")
-    for error in parsed_data_1.errors:
-        print("Línea", error.line)
-        print("Descripción", error.description)
+#if len(parsed_data_1.errors) > 0:
+#    print("Hay errores en el archivo")
+#    for error in parsed_data_1.errors:
+#        print("Línea", error.line)
+#        print("Descripción", error.description)
 
-else:
-    for parse in parsed_data_1.data:
-        print("Código de curso:", parse.code)
-        print("Nombre de curso:", parse.name)
-        print("Prerequisitos:", parse.prerequisites)
-        print("Es obligatorio?:", parse.is_required)
-        print("Estado de curso:", parse.status)
-        print("Semestre:", parse.semester)
-        print("Creditos:", parse.points)
-        print("________________________________\n")
+#else:
+#    for parse in parsed_data_1.data:
+#        print("Código de curso:", parse.code)
+#        print("Nombre de curso:", parse.name)
+#        print("Prerequisitos:", parse.prerequisites)
+#        print("Es obligatorio?:", parse.is_required)
+#        print("Estado de curso:", parse.status)
+#        print("Semestre:", parse.semester)
+#        print("Creditos:", parse.points)
+#        print("________________________________\n")
